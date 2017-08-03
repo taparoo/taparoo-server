@@ -100,4 +100,9 @@ router.post("/login", function(req, res, next) {
     next(new Error("Invalid Login"));
   }
 });
+
+router.post("/beers", (req, res) => {
+  queries.create("beer", req.body).then(beer => res.json(beer));
+});
+
 module.exports = router;

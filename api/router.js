@@ -32,7 +32,7 @@ router.get('/users/:id', (req,res,next) => {
 
 router.get('/beers', (req,res,next) => {
   queries.getAll('beer').then(beers => {
-    res.json(beers);
+    res.json({"beers": beers});
   });
 });
 

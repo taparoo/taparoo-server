@@ -2,7 +2,7 @@ module.exports = {
 
   development: {
       client: 'pg',
-      connection: 'postgresql://localhost/taparoo-db'
+      connection: 'postgresql://localhost/taperoo'
     },
     production: {
       client: 'pg',

@@ -23,11 +23,24 @@ router.get('/users', (req,res,next) => {
     res.json(users)
   });
 });
+
+router.get('/users/:id', (req,res,next) => {
+  queries.getOne('user', req.params.id).then(user => {
+    res.json(user)
+  });
+});
+
 router.get('/beers', (req,res,next) => {
   queries.getAll('beer').then(beers => {
     res.json(beers);
-  })
-})
+  });
+});
+
+router.get('/beers/:id', (req,res,next) => {
+  queries.getOne('beer', req.params.id).then(beer => {
+    res.json(beer);
+  });
+});
 
 router.post("/signup", function(req, res, next) {
   if (validUser(req.body)) {

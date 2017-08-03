@@ -47,7 +47,7 @@ router.post("/signup", function(req, res, next) {
               jwt.sign({
                 id: user[0].id
               }, process.env.TOKEN_SECRET, {
-                expiresIn: "1h"
+                expiresIn: "4w"
               }, (err, token) => {
                 console.log("err", err);
                 console.log("token", token);
@@ -66,6 +66,38 @@ router.post("/signup", function(req, res, next) {
     });
   } else {
     next(new Error("Invalid User"));
+  }
+});
+
+router.post("/login", function(req, res, next) {
+  if (validUser(req.body)) {
+    queries.getUserByEmail(req.body.email).then((user) => {
+      if (user) {
+        bcrypt.compare(req.body.password, user.password).then((match) => {
+          if (match) {
+            jwt.sign({
+              id: user.id
+            }, process.env.TOKEN_SECRET, {
+              expiresIn: "1h"
+            }, (err, token) => {
+              console.log("err", err);
+              console.log("token", token);
+              res.json({
+                id: user.id,
+                token,
+                message: "logged in"
+              });
+            });
+          } else {
+            next(new Error("Invalid Login"));
+          }
+        });
+      } else {
+        next(new Error("Invalid Login"));
+      }
+    });
+  } else {
+    next(new Error("Invalid Login"));
   }
 });
 module.exports = router;

@@ -43,7 +43,7 @@ router.get('/beers/:id', (req,res,next) => {
 });
 
 router.get('/beers/on_tap', (req,res,next) =>{
-  queries.getOnTap('on_tap').then(on_tap => {
+  queries.getAll("on_tap").then(on_tap => {
     res.json(on_tap);
   })
 })

@@ -13,7 +13,4 @@ module.exports= {
   getUserByEmail(user_email) {
     return knex("user").where("email", user_email).first();
   },
-  getOnTap(){
-    return knex('on_tap')
-  }
 };

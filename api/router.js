@@ -36,17 +36,17 @@ router.get('/beers', (req,res,next) => {
   });
 });
 
+router.get('/beers/on_tap', (req,res) =>{
+  queries.getAll("on-tap").then(on_tap => {
+    res.json(on_tap);
+  })
+})
+
 router.get('/beers/:id', (req,res,next) => {
   queries.getOne('beer', req.params.id).then(beer => {
     res.json(beer);
   });
 });
-
-router.get('/beers/on_tap', (req,res,next) =>{
-  queries.getAll("on_tap").then(on_tap => {
-    res.json(on_tap);
-  })
-})
 
 router.post("/signup", function(req, res, next) {
   if (validUser(req.body)) {

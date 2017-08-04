@@ -28,7 +28,11 @@ router.get('/beers', (req,res,next) => {
     res.json(beers);
   })
 })
-
+router.get('/beers/on_tap', (req,res,next) =>{
+  queries.getOnTap('on_tap').then(on_tap => {
+    res.json(on_tap);
+  })
+})
 router.post("/signup", function(req, res, next) {
   if (validUser(req.body)) {
     queries.getUserByEmail(req.body.email).then((user) => {
@@ -101,3 +105,5 @@ router.post("/login", function(req, res, next) {
   }
 });
 module.exports = router;
+
+router.put

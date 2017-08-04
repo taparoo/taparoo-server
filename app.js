@@ -6,9 +6,18 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+var http = require('http');
+
 require('dotenv').config();
 
+const sockets = require('./sockets');
+
 const app = express();
+
+var server = http.createServer(app);
+var io = require("socket.io")(server);
+
+sockets(io);
 
 const router = require('./api/router');
 
@@ -39,4 +48,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-module.exports = app;
+module.exports = {
+	app,
+	server
+};

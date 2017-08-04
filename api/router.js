@@ -32,6 +32,7 @@ router.get('/users/:id', (req,res,next) => {
 
 router.get('/beers', (req,res,next) => {
   queries.getAll('beer').then(beers => {
+<<<<<<< HEAD
     res.json({"beers": beers});
   });
 });
@@ -42,6 +43,16 @@ router.get('/beers/:id', (req,res,next) => {
   });
 });
 
+=======
+    res.json(beers);
+  })
+})
+router.get('/beers/on_tap', (req,res,next) =>{
+  queries.getOnTap('on_tap').then(on_tap => {
+    res.json(on_tap);
+  })
+})
+>>>>>>> 3129b9fbb42a68c8116fb50130bbe4065c05a098
 router.post("/signup", function(req, res, next) {
   if (validUser(req.body)) {
     queries.getUserByEmail(req.body.email).then((user) => {
@@ -119,3 +130,5 @@ router.post("/beers", (req, res) => {
 });
 
 module.exports = router;
+
+router.put

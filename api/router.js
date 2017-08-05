@@ -37,14 +37,35 @@ router.get('/beers', (req,res,next) => {
 });
 
 router.get('/beers/on_tap', (req,res) =>{
-  queries.getTaps().then(on_tap => {
-    res.json({"on_tap": on_tap});
+  queries.getOnTap().then(beer_ids => {
+    return beer_ids.reduce((ids, beer) => {
+      ids.push(beer.beer_id);
+      return ids;
+    }, []);
+  }).then(beers => {
+    queries.getTaps(beers).then((onTap) => {
+      res.json({"on tap": onTap})
+    })
   });
 });
 
 router.put("/beers/on_tap", (req, res) =>{
-  queries.changeTaps(req.body).then(beers => {
-    res.json({"beers": beers});
+  // Promise.all(
+  //   req.body.map((beer, i) => {
+  //     return queries.changeTaps(beer, i+1);
+  //   })
+  // ).then(() => {
+  //   res.json({message: "CJ!"})
+  // })
+  let taps = Object.keys(req.body);
+  let beer_id = Object.values(req.body);
+  Promise.all(taps.map((tap, i) => {
+    console.log(tap, beer_id[i]);
+    return queries.changeTaps(beer_id[i], tap);
+  })).then(thing => {
+    res.json({"thing": thing});
+  }).catch(err => {
+    console.log(err);
   });
 });
 

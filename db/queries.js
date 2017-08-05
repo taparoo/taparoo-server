@@ -13,13 +13,15 @@ module.exports= {
   getUserByEmail(user_email) {
     return knex("user").where("email", user_email).first();
   },
-  changeTaps(beers) {
-    return knex("on-tap").update(beers);
+  changeTaps(beer, tap) {
+    console.log("tap", tap);
+
+    return knex("on-tap").where("tap", tap).update("beer_id", beer);
   },
-  getTaps() {
-    return knex("on-tap").join("beer", function() {
-      console.log(this);
-      this.on("beer.id", "on-tap.left_tap").andOn("beer.id", "on-tap.right_tap").andOn("beer.id", "on-tap.cooler");
-    });
+  getTaps(beer_ids) {
+    return knex("beer").whereIn("id", beer_ids);
+  },
+  getOnTap(){
+    return knex.select("beer_id").from("on-tap");
   }
 };

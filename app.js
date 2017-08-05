@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 var http = require('http');
+const middleware = require("./middleware");
 
 require('dotenv').config();
 
@@ -21,6 +22,7 @@ sockets(io);
 
 const router = require('./api/router');
 
+app.use(middleware.checkTokenSetUser);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

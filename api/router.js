@@ -53,7 +53,7 @@ router.put("/beers/on_tap", (req, res) =>{
   console.log(req.body);
 
   let taps = Object.keys(req.body);
-  console.log(req.body);
+  console.log("2", req.body);
   let beers = req.body;
   Promise.all(taps.map((tap) => {
     return queries.changeTaps(beers[tap], tap);

@@ -3,7 +3,7 @@ module.exports = function(io) {
     console.log("Client connection", socket.id);
     socket.on('tapUpdate', function (data) {
       console.log(data);
-      socket.emit("tapUpdate", data)
+      io.emit("tapUpdate", data)
     });
   });
 };

@@ -50,13 +50,8 @@ router.get('/beers/on_tap', (req,res) =>{
 });
 
 router.put("/beers/on_tap", (req, res) =>{
-  // Promise.all(
-  //   req.body.map((beer, i) => {
-  //     return queries.changeTaps(beer, i+1);
-  //   })
-  // ).then(() => {
-  //   res.json({message: "CJ!"})
-  // })
+  console.log(req.body);
+
   let taps = Object.keys(req.body);
   let beer_id = Object.values(req.body);
   Promise.all(taps.map((tap, i) => {

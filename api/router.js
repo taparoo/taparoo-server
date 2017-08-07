@@ -142,6 +142,7 @@ router.post("/login", function(req, res, next) {
 });
 
 router.post("/beers", (req, res) => {
+  console.log(res.body);
   queries.create("beer", req.body).then(beer => res.json(beer));
 });
 

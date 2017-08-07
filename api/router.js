@@ -18,31 +18,35 @@ function validUser(user) {
   return hasEmail && hasPass;
 }
 
-router.get('/users', (req,res,next) => {
+router.get('/users', (req, res, next) => {
   queries.getAll('user').then(users => {
     res.json(users)
   });
 });
 
-router.get('/users/:id', (req,res,next) => {
+router.get('/users/:id', (req, res, next) => {
   queries.getOne('user', req.params.id).then(user => {
     res.json(user)
   });
 });
 
-router.get('/beers', (req,res,next) => {
+router.get('/beers', (req, res, next) => {
   queries.getAll('beer').then(beers => {
-    res.json({"beers": beers});
+    res.json({
+      "beers": beers
+    });
   });
 });
 
-router.get('/beers/on_tap', (req,res) =>{
+router.get('/beers/on_tap', (req, res) => {
   queries.getTaps().then(beers => {
-    res.json({"on-tap": beers});
+    res.json({
+      "on-tap": beers
+    });
   });
 });
 
-router.put("/beers/on_tap", (req, res) =>{
+router.put("/beers/on_tap", (req, res) => {
   console.log(req.body);
 
   let taps = Object.keys(req.body);
@@ -51,13 +55,15 @@ router.put("/beers/on_tap", (req, res) =>{
   Promise.all(taps.map((tap) => {
     return queries.changeTaps(beers[tap], tap);
   })).then(thing => {
-    res.json({"thing": thing});
+    res.json({
+      "thing": thing
+    });
   }).catch(err => {
     console.log(err);
   });
 });
 
-router.get('/beers/:id', (req,res,next) => {
+router.get('/beers/:id', (req, res, next) => {
   queries.getOne('beer', req.params.id).then(beer => {
     res.json(beer);
   });
@@ -137,6 +143,14 @@ router.post("/login", function(req, res, next) {
 
 router.post("/beers", (req, res) => {
   queries.create("beer", req.body).then(beer => res.json(beer));
+});
+
+router.delete("/beers/:beer_id", (req, res) => {
+  queries.deleteOne("beer", req.params.beer_id).then(() => res.json("deleted"));
+});
+
+router.delete("/users/:user_id", (req, res) => {
+  queries.deleteOne("users", req.params.user_id).then(() => res.json("deleted"));
 });
 
 module.exports = router;

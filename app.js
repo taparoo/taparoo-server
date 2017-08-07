@@ -27,10 +27,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(cors({
-	credentials: true,
-	origin: process.env.CORS_ORIGIN
-}));
+app.use(cors());
 
 app.use('/api/v1', router);
 

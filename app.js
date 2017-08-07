@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cors({
 	credentials: true,
-	origin: process.env.CORS_ORIGIN
+	origin: "*"
 }));
 
 app.use('/api/v1', router);

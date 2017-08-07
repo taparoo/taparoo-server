@@ -18,8 +18,8 @@ module.exports= {
 
     return knex("on-tap").where("tap", tap).update("beer_id", beer);
   },
-  getTaps(beer_ids) {
-    return knex("beer").whereIn("id", beer_ids);
+  getTaps(beer_id) {
+    return knex("on-tap").innerJoin("beer", "on-tap.beer_id", "beer.id");
   },
   getOnTap(){
     return knex.select("beer_id").from("on-tap");

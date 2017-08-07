@@ -37,15 +37,8 @@ router.get('/beers', (req,res,next) => {
 });
 
 router.get('/beers/on_tap', (req,res) =>{
-  queries.getOnTap().then(beer_ids => {
-    return beer_ids.reduce((ids, beer) => {
-      ids.push(beer.beer_id);
-      return ids;
-    }, []);
-  }).then(beers => {
-    queries.getTaps(beers).then((onTap) => {
-      res.json({"on tap": onTap})
-    })
+  queries.getTaps().then(beers => {
+    res.json({"on-tap": beers});
   });
 });
 

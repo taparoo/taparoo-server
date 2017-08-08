@@ -37,7 +37,7 @@ router.get('/inventory', (req, res, next) => {
 });
 
 router.post('/inventory', (req, res, next) => {
-  queries.getAll('inventory', req.body).then(inventory => {
+  queries.create('inventory', req.body).then(inventory => {
     res.json({"inventory": inventory})
   });
 });

@@ -30,6 +30,18 @@ router.get('/users/:id', (req, res, next) => {
   });
 });
 
+router.get('/inventory', (req, res, next) => {
+  queries.getAll('inventory').then(inventory => {
+    res.json({"inventory": inventory})
+  });
+});
+
+router.post('/inventory', (req, res, next) => {
+  queries.getAll('inventory', req.body).then(inventory => {
+    res.json({"inventory": inventory})
+  });
+});
+
 router.get('/beers', (req, res, next) => {
   queries.getAll('beer').then(beers => {
     res.json({
@@ -142,7 +154,6 @@ router.post("/login", function(req, res, next) {
 });
 
 router.post("/beers", (req, res) => {
-  console.log(res.body);
   queries.create("beer", req.body).then(beer => res.json(beer));
 });
 

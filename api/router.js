@@ -47,7 +47,7 @@ router.get('/beers/on_tap', (req, res) => {
 });
 
 router.put("/beers/on_tap", (req, res) => {
-  console.log(req.body);
+  console.log("body", req.body);
 
   let taps = Object.keys(req.body);
   console.log("2", req.body);

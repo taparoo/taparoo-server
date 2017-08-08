@@ -16,10 +16,13 @@ module.exports= {
   changeTaps(beer, tap) {
     console.log("tap", tap);
 
-    return knex("on-tap").where("tap", tap).update("beer_id", beer);
+    return knex("beer").where("id", beer).update("tap", tap);
   },
+  // getTaps() {
+  //   return knex("on-tap").innerJoin("beer", "on-tap.beer_id", "beer.id");
+  // },
   getTaps() {
-    return knex("on-tap").innerJoin("beer", "on-tap.beer_id", "beer.id");
+    return knex("beer").whereNot("tap", "=", "off");
   },
   getOnTap(){
     return knex.select("beer_id").from("on-tap");

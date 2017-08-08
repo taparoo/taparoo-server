@@ -15,8 +15,10 @@ module.exports= {
   },
   changeTaps(beer, tap) {
     console.log("tap", tap);
-
     return knex("beer").where("id", beer).update("tap", tap);
+  },
+  resetTaps(){
+    return knex("beer").whereNot("tap", "=", "off").update("tap", "off");
   },
   // getTaps() {
   //   return knex("on-tap").innerJoin("beer", "on-tap.beer_id", "beer.id");
